@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --wt-primary: #2d5a27;
+  --wt-secondary: #8b6914;
+  --wt-sky: #4a90d9;
+  --wt-sand: #d4a574;
+  --wt-sunset: #f4a460;
+  --wt-dark: #1a1a2e;
+  --wt-darker: #0f0f1a;
+  --wt-bark: #5c3a1e;
+  --wt-leaf: #4caf50;
+  --wt-ember: #ff6b35;
+}
+
+* {
+  border-radius: 0 !important;
+  image-rendering: pixelated;
+}
+
+html {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+}
+
+body {
+  background-color: var(--wt-darker);
+  color: #e8e8e8;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1rem;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(45, 90, 39, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 90, 39, 0.03) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Scanline overlay */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
+
+/* Pixel art scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--wt-darker);
+  border: 2px solid var(--wt-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--wt-primary);
+  border: 2px solid var(--wt-leaf);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--wt-leaf);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--wt-darker);
+}
+
+/* Pixel border utility */
+@layer utilities {
+  .pixel-border {
+    border: 3px solid var(--wt-primary);
+    box-shadow:
+      inset 2px 2px 0px rgba(255, 255, 255, 0.1),
+      inset -2px -2px 0px rgba(0, 0, 0, 0.3),
+      4px 4px 0px #000;
+  }
+
+  .pixel-border-light {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 2px 2px 0px #000;
+  }
+
+  .pixel-card {
+    background: linear-gradient(180deg, rgba(45, 90, 39, 0.2) 0%, rgba(15, 15, 26, 0.9) 100%);
+    border: 3px solid var(--wt-primary);
+    box-shadow:
+      inset 2px 2px 0px rgba(255, 255, 255, 0.05),
+      inset -2px -2px 0px rgba(0, 0, 0, 0.2),
+      4px 4px 0px #000;
+  }
+
+  .pixel-btn {
+    font-family: 'Press Start 2P', monospace;
+    border: 3px solid var(--wt-leaf);
+    background: var(--wt-primary);
+    color: #e8e8e8;
+    padding: 8px 16px;
+    box-shadow:
+      inset 2px 2px 0px rgba(255, 255, 255, 0.2),
+      inset -2px -2px 0px rgba(0, 0, 0, 0.3),
+      4px 4px 0px #000;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.05s steps(1);
+  }
+
+  .pixel-btn:hover {
+    background: var(--wt-leaf);
+    border-color: #66bb6a;
+    transform: translate(-1px, -1px);
+    box-shadow:
+      inset 2px 2px 0px rgba(255, 255, 255, 0.3),
+      inset -2px -2px 0px rgba(0, 0, 0, 0.2),
+      5px 5px 0px #000;
+  }
+
+  .pixel-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow:
+      inset 2px 2px 0px rgba(0, 0, 0, 0.3),
+      inset -2px -2px 0px rgba(255, 255, 255, 0.1),
+      1px 1px 0px #000;
+  }
+
+  .pixel-input {
+    font-family: 'Press Start 2P', monospace;
+    background: var(--wt-darker);
+    border: 3px solid var(--wt-bark);
+    color: #e8e8e8;
+    padding: 8px 12px;
+    box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.3);
+    outline: none;
+  }
+
+  .pixel-input:focus {
+    border-color: var(--wt-leaf);
+    box-shadow:
+      inset 2px 2px 0px rgba(0, 0, 0, 0.3),
+      0 0 0 2px var(--wt-primary);
+  }
+
+  .text-shadow-pixel {
+    text-shadow: 2px 2px 0px #000, 4px 4px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .pixel-glow {
+    box-shadow:
+      4px 4px 0px #000,
+      0 0 20px rgba(76, 175, 80, 0.3),
+      0 0 40px rgba(76, 175, 80, 0.1);
+  }
+}
+
+/* Chunky step animations */
+@keyframes chunky-slide-in {
+  0% { transform: translateX(-100%); opacity: 0; }
+  20% { transform: translateX(-80%); opacity: 0; }
+  21% { transform: translateX(-60%); opacity: 1; }
+  40% { transform: translateX(-40%); }
+  60% { transform: translateX(-20%); }
+  80% { transform: translateX(-5%); }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes pixel-type {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+/* Pixel art selection */
+::selection {
+  background: var(--wt-primary);
+  color: #fff;
+}
